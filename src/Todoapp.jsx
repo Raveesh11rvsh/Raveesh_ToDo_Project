@@ -58,20 +58,20 @@ export default function TodoApp() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-sky-100 to-indigo-100 p-4">
-      <div className="max-w-xl mx-auto mt-10">
-        <h1 className="text-3xl font-bold text-center mb-6 text-indigo-800">
-          Creative Todo App
+    <div className="min-h-screen bg-gradient-to-br from-violet-100 via-blue-100 to-emerald-100 p-6">
+      <div className="max-w-2xl mx-auto mt-10 bg-white/60 backdrop-blur-xl shadow-xl rounded-3xl p-8 border border-white/20">
+        <h1 className="text-4xl font-extrabold text-center mb-6 text-indigo-900 drop-shadow-md">
+          🌟 My Todo List
         </h1>
 
         <div className="flex gap-2 mb-4">
           <Input
-            placeholder="Add or edit a task..."
+            placeholder="What's on your mind today?"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="flex-1 shadow"
+            className="flex-1 shadow-inner focus:ring-2 focus:ring-indigo-300"
           />
-          <Button onClick={addTodo} className="gap-1">
+          <Button onClick={addTodo} className="gap-1 bg-indigo-600 hover:bg-indigo-700 text-white">
             <Plus className="w-4 h-4" />
             {editId !== null ? "Update" : "Add"}
           </Button>
@@ -83,6 +83,7 @@ export default function TodoApp() {
               key={f}
               variant={filter === f ? "default" : "outline"}
               onClick={() => setFilter(f)}
+              className={`rounded-full px-4 ${filter === f ? 'bg-indigo-600 text-white' : 'bg-white text-indigo-600 border border-indigo-600 hover:bg-indigo-50'}`}
             >
               {f.charAt(0).toUpperCase() + f.slice(1)}
             </Button>
@@ -91,28 +92,28 @@ export default function TodoApp() {
 
         <div className="space-y-4">
           {filteredTodos.length === 0 && (
-            <p className="text-center text-gray-600">No tasks to show</p>
+            <p className="text-center text-gray-600 italic">No tasks found 💤</p>
           )}
 
           {filteredTodos.map((todo) => (
             <div
               key={todo.id}
-              className={`transition-all duration-300 flex items-center justify-between px-4 py-3 shadow-md ${
-                todo.completed ? "bg-green-50" : "bg-white"
+              className={`transition-all duration-300 flex items-center justify-between px-4 py-3 rounded-2xl shadow-md ${
+                todo.completed ? "bg-green-100 border border-green-300" : "bg-white border border-gray-200"
               }`}
             >
-              <Card className="w-full">
+              <Card className="w-full bg-transparent shadow-none">
                 <CardContent className="flex items-center justify-between p-0">
                   <div className="flex items-center gap-4">
                     <input
                       type="checkbox"
                       checked={todo.completed}
                       onChange={() => toggleComplete(todo.id)}
-                      className="scale-125"
+                      className="scale-125 accent-green-600"
                     />
                     <span
                       className={`text-lg ${
-                        todo.completed ? "line-through text-gray-500" : ""
+                        todo.completed ? "line-through text-gray-500" : "text-gray-800"
                       }`}
                     >
                       {todo.text}
@@ -123,6 +124,7 @@ export default function TodoApp() {
                       size="icon"
                       variant="ghost"
                       onClick={() => editTodo(todo.id)}
+                      className="hover:bg-blue-100"
                     >
                       <Edit3 className="w-5 h-5 text-blue-600" />
                     </Button>
@@ -130,6 +132,7 @@ export default function TodoApp() {
                       size="icon"
                       variant="ghost"
                       onClick={() => deleteTodo(todo.id)}
+                      className="hover:bg-red-100"
                     >
                       <Trash2 className="w-5 h-5 text-red-600" />
                     </Button>
@@ -143,3 +146,4 @@ export default function TodoApp() {
     </div>
   );
 }
+
